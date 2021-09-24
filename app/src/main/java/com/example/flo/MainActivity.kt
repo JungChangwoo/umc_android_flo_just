@@ -1,17 +1,36 @@
 package com.example.flo
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.flo.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
+
     lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initNavigation()
+
+
+        binding.mainMiniplayerIv.setOnClickListener {
+            binding.mainMiniplayerIv.visibility = View.GONE
+            binding.mainPauseIv.visibility = View.VISIBLE
+        }
+
+        binding.mainPauseIv.setOnClickListener {
+            binding.mainMiniplayerIv.visibility = View.VISIBLE
+            binding.mainPauseIv.visibility = View.GONE
+        }
+
+        binding.mainPlayerLayout.setOnClickListener {
+            startActivity(Intent(this,SongActivity::class.java))
+        }
 
         binding.mainBnv.setOnItemSelectedListener {
             when (it.itemId) {
