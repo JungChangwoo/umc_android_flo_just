@@ -1,17 +1,26 @@
 package com.example.flo
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.flo.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
+
     lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         initNavigation()
+
+        binding.mainPlayerLayout.setOnClickListener {
+            startActivity(Intent(this, SongActivity::class.java))
+        }
 
         binding.mainBnv.setOnItemSelectedListener {
             when (it.itemId) {
@@ -53,6 +62,13 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().replace(R.id.main_frm, HomeFragment())
             .commitAllowingStateLoss()
 
+    }
+
+
+
+    fun setSongOnMiniPlayer(song : Song){
+        binding.mainMiniplayerTitleTv.text = song.title
+        binding.mainMiniplayerSingerTv.text = song.singer
     }
 
 }
