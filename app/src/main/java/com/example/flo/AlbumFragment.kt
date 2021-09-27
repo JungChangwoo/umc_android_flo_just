@@ -10,11 +10,14 @@ import com.example.flo.databinding.FragmentAlbumBinding
 
 class AlbumFragment : Fragment() {
 
-    lateinit var binding : FragmentAlbumBinding
+    lateinit var binding: FragmentAlbumBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
-        binding = FragmentAlbumBinding.inflate(inflater , container , false)
+    override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentAlbumBinding.inflate(inflater,container,false)
 
         binding.albumBackIv.setOnClickListener {
             (context as MainActivity).supportFragmentManager.beginTransaction()
@@ -46,9 +49,7 @@ class AlbumFragment : Fragment() {
             Toast.makeText(activity,"돌림노래 (Feat. DEAN)", Toast.LENGTH_SHORT).show()
         }
 
-
         return binding.root
     }
-
 
 }
