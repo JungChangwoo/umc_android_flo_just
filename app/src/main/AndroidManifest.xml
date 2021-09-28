@@ -16,11 +16,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<<<<<<< HEAD
-        <activity android:name=".SongActivity"/>
-=======
         <activity android:name="com.example.flo.SongActivity"/>
->>>>>>> d2ee38aa7d845d3f67d5ae9feaac29c2d607114d
     </application>
 
 </manifest>
