@@ -25,7 +25,6 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -38,7 +37,7 @@
                 android:id="@+id/main_miniplayer_title_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="LILAC"
+                android:text="라일락"
                 android:textColor="@color/black"
                 android:textSize="13sp" />
 
