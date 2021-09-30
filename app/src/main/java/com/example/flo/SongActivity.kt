@@ -27,19 +27,23 @@ class SongActivity : AppCompatActivity() {
         }
 
         binding.songMiniplayerIv.setOnClickListener {
-            binding.songMiniplayerIv.visibility = View.GONE
-            binding.songPauseIv.visibility = View.VISIBLE
+            setPlayerStatus(false)
         }
 
         binding.songPauseIv.setOnClickListener {
-            binding.songPauseIv.visibility = View.GONE
-            binding.songMiniplayerIv.visibility = View.VISIBLE
+            setPlayerStatus(true)
         }
 
 
-        //
-//        val imageView = findViewById<ImageView>(R.id.home_today_music_album_img_play_01_iv)
-//
-//        imageView.
+    }
+
+    fun setPlayerStatus (isPlaying : Boolean){
+        if(isPlaying){
+            binding.songMiniplayerIv.visibility = View.VISIBLE
+            binding.songPauseIv.visibility = View.GONE
+        } else {
+            binding.songMiniplayerIv.visibility = View.GONE
+            binding.songPauseIv.visibility = View.VISIBLE
+        }
     }
 }
