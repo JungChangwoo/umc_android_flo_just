@@ -34,7 +34,6 @@ class SongActivity : AppCompatActivity() {
             setPlayerStatus(true)
         }
 
-
     }
 
     fun setPlayerStatus (isPlaying : Boolean){
