@@ -1,5 +1,6 @@
 package com.example.flo
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +13,15 @@ class SongActivity : AppCompatActivity() {
     //전역 변수
     lateinit var binding : ActivitySongBinding
 
+    private var isRunning = false
+
+    lateinit var timer: Timer
+
+    private var reapeatIdx=0
+
+    private var minute = 0
+    private var second = 0F
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySongBinding.inflate(layoutInflater)
@@ -21,17 +31,23 @@ class SongActivity : AppCompatActivity() {
             binding.songMusicTitleTv.text = intent.getStringExtra("title")
             binding.songSingerNameTv.text = intent.getStringExtra("singer")
         }
+        timer = Timer()
+        timer.start()
 
         binding.songDownIb.setOnClickListener {
+            timer.interrupt()
             finish()
         }
 
         binding.songMiniplayerIv.setOnClickListener {
             setPlayerStatus(false)
+            isRunning=true
+
         }
 
         binding.songPauseIv.setOnClickListener {
             setPlayerStatus(true)
+            isRunning=false
         }
 
     }
@@ -43,6 +59,44 @@ class SongActivity : AppCompatActivity() {
         } else {
             binding.songMiniplayerIv.visibility = View.GONE
             binding.songPauseIv.visibility = View.VISIBLE
+        }
+    }
+    inner class Timer : Thread() {
+
+        @SuppressLint("SetTextI18n")
+        override fun run() {
+            while(true) {
+                try {
+                    sleep(1000)
+                    if (isRunning && minute<1) {
+
+                        second += 1F
+
+                        if (second >= 60) {
+                            second = 0F
+                            minute += 1
+                        }
+
+                        if (reapeatIdx == 2 && minute == 1){
+                            minute = 0
+                            second = 0F
+                        }
+
+                        runOnUiThread {
+                            if (minute < 10 && second < 10) {
+                                binding.songStartTimeTv.text = "0${minute}:0${second.toInt()}"
+                            } else if(minute < 10 && second>=10){
+                                binding.songStartTimeTv.text = "0${minute}:${second.toInt()}"
+                            }
+
+                            binding.musicplayerProgressBarSb.progress = ((second+minute*60) / 60F * 100).toInt()
+                        }
+
+                    }
+                } catch (e: InterruptedException) {
+                }
+            }
+
         }
     }
 }
