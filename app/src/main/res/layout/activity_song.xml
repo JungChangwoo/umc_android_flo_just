@@ -150,36 +150,33 @@
 
     </LinearLayout>
 
-    <View
-        android:id="@+id/song_progressbar_backgroud_view"
+    <SeekBar
+        android:id="@+id/musicplayer_progress_bar_sb"
+        style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="20dp"
-        android:background="@color/gray_color"
+        android:layout_height="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@null"
+        android:progressBackgroundTint="@color/gray_color"
+        android:progressTint="#3F3FFF"
+        android:progress="50"
+        android:max="100"
+        android:thumb="@color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/song_like_iv_layout" />
 
-    <View
-        android:id="@+id/song_progressbar_view"
-        android:layout_width="50dp"
-        android:layout_height="2dp"
-        android:layout_marginStart="20dp"
-        android:background="@color/select_color"
-        app:layout_constraintBottom_toBottomOf="@+id/song_progressbar_backgroud_view"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/song_progressbar_backgroud_view" />
+
 
     <TextView
         android:id="@+id/song_start_time_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="00:08"
+        android:layout_marginHorizontal="20dp"
         android:textColor="@color/select_color"
-        app:layout_constraintStart_toStartOf="@+id/song_progressbar_backgroud_view"
-        app:layout_constraintTop_toBottomOf="@+id/song_progressbar_backgroud_view" />
+        app:layout_constraintStart_toStartOf="@+id/musicplayer_progress_bar_sb"
+        app:layout_constraintTop_toBottomOf="@+id/musicplayer_progress_bar_sb" />
 
 
     <TextView
@@ -187,9 +184,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="01:00"
+        android:layout_marginHorizontal="20dp"
         android:textColor="@color/gray_color"
-        app:layout_constraintEnd_toEndOf="@+id/song_progressbar_backgroud_view"
-        app:layout_constraintTop_toBottomOf="@+id/song_progressbar_backgroud_view" />
+        app:layout_constraintEnd_toEndOf="@+id/musicplayer_progress_bar_sb"
+        app:layout_constraintTop_toBottomOf="@+id/musicplayer_progress_bar_sb" />
 
 
     <LinearLayout
@@ -200,7 +198,7 @@
         app:layout_constraintBottom_toTopOf="@+id/song_related_iv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/song_progressbar_view">
+        app:layout_constraintTop_toBottomOf="@+id/musicplayer_progress_bar_sb">
 
         <ImageView
             android:id="@+id/song_previous_iv"
