@@ -15,7 +15,6 @@ class SongActivity : AppCompatActivity() {
     //전역 변수
     lateinit var binding: ActivitySongBinding
     lateinit var timer: Timer
-
     //    private var handler=Handler(Looper.getMainLooper())
     private val song: Song = Song()
 
