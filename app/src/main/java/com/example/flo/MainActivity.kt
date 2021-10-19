@@ -66,7 +66,6 @@ class MainActivity : AppCompatActivity() {
             }
             false
         }
-
     }
 
     private fun initNavigation() {
@@ -75,7 +74,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun setMiniPlayer(song : Song){
+    private fun setMiniPlayer(song : Song){
         binding.mainMiniplayerTitleTv.text = song.title
         binding.mainMiniplayerSingerTv.text = song.singer
 
