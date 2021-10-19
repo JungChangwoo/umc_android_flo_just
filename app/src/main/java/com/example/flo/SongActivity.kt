@@ -1,9 +1,8 @@
 package com.example.flo
 
 import android.annotation.SuppressLint
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -57,7 +56,7 @@ class SongActivity : AppCompatActivity() {
         }
     }
 
-    fun setPlayerStatus(isPlaying: Boolean) {
+    private fun setPlayerStatus(isPlaying: Boolean) {
         if (isPlaying) {
             binding.songMiniplayerIv.visibility = View.GONE
             binding.songPauseIv.visibility = View.VISIBLE
@@ -94,8 +93,30 @@ class SongActivity : AppCompatActivity() {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        timer.isPlaying = false; // 스레드 멈춤
+        setPlayerStatus(false); // 멈춤상태로 이미지 전환
+    }
+    // 데이터 저장
+    override fun onStop() {
+        super.onStop()
+        val second = (song.playTime*binding.musicplayerProgressSb.progress)/1000
+        val saveSong = Song(song.title, song.singer, second, song.playTime, false)
+
+        val sharedPreferences = getSharedPreferences("saveSong", MODE_PRIVATE)
+        val editor : SharedPreferences.Editor = sharedPreferences.edit()
+        editor.putString("title", saveSong.title)
+        editor.putString("singer", saveSong.singer)
+        editor.putInt("second", saveSong.second)
+        editor.putInt("playTime", saveSong.playTime)
+        editor.putBoolean("isPlaying", saveSong.isPlaying)
+
+        editor.commit()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
-        timer.interrupt()
+        timer.interrupt() // 스레드를 해제함
     }
 }

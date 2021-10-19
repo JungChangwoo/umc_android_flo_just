@@ -19,15 +19,17 @@ class MainActivity : AppCompatActivity() {
         initNavigation()
 
 //        val song = Song(binding.mainMiniplayerTitleTv.text.toString(), binding.mainMiniplayerSingerTv.text.toString())
-        val song = Song("라일락", "아이유(IU)", 215, false)
-        setMiniPlayer(song)
+//        val song = Song("라일락", "아이유(IU)", 215, false) >> setOnClick으로
+//        setMiniPlayer(song)
 
         Log.d("LOG test",binding.mainMiniplayerTitleTv.text.toString()+ binding.mainMiniplayerSingerTv.text.toString())
 
         binding.mainPlayerLayout.setOnClickListener {
             val intent = Intent(this,SongActivity::class.java)
+            val song = Song("라일락락", "아이유(IU)", 0,215, false)
             intent.putExtra("title", song.title)
             intent.putExtra("singer", song.singer)
+            intent.putExtra("second", song.second)
             intent.putExtra("playTime", song.playTime)
             intent.putExtra("isPlaying", song.isPlaying)
             startActivity(intent)
@@ -77,6 +79,7 @@ class MainActivity : AppCompatActivity() {
     private fun setMiniPlayer(song : Song){
         binding.mainMiniplayerTitleTv.text = song.title
         binding.mainMiniplayerSingerTv.text = song.singer
+        binding.mainProgressSb.progress = (song.second * 1000 / song.playTime)
 
         if(song.isPlaying) {
             binding.mainMiniplayerPauseIv.visibility = View.VISIBLE
@@ -85,6 +88,19 @@ class MainActivity : AppCompatActivity() {
             binding.mainMiniplayerPauseIv.visibility = View.GONE
             binding.mainMiniplayerPlayIv.visibility = View.VISIBLE
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        val sharedPreferences = getSharedPreferences("saveSong", MODE_PRIVATE)
+        val title = sharedPreferences.getString("title", "제목")
+        val singer = sharedPreferences.getString("singer", "가수")
+        val second = sharedPreferences.getInt("second", 0)
+        val playTime = sharedPreferences.getInt("playTime", 0);
+        val isPlaying = sharedPreferences.getBoolean("isPlaying", false)
+        val song = Song(title, singer, second, playTime, isPlaying) //Song dataClass 에 ?추가
+        setMiniPlayer(song)
     }
 }
 
