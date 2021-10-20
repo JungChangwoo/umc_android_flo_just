@@ -23,7 +23,7 @@
         android:layout_marginBottom="-3dp"
         android:progressBackgroundTint="@color/song_player_bg"
         android:progressTint="@color/song_player"
-        android:progress="500"
+        android:progress="0"
         android:max="1000"
         android:thumb="@color/transparent"
         app:layout_constraintEnd_toEndOf="parent"

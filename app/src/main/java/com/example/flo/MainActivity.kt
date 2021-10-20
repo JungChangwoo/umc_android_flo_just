@@ -26,12 +26,14 @@ class MainActivity : AppCompatActivity() {
 
         binding.mainPlayerLayout.setOnClickListener {
             val intent = Intent(this,SongActivity::class.java)
-            val song = Song("라일락락", "아이유(IU)", 0,215, false)
+            val song = Song("라일락", "아이유(IU)", 0,215, false, "music_lilac")
             intent.putExtra("title", song.title)
             intent.putExtra("singer", song.singer)
             intent.putExtra("second", song.second)
             intent.putExtra("playTime", song.playTime)
             intent.putExtra("isPlaying", song.isPlaying)
+            intent.putExtra("music",song.music)
+
             startActivity(intent)
         }
 
