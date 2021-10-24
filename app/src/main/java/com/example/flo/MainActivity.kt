@@ -26,14 +26,14 @@ class MainActivity : AppCompatActivity() {
         initNavigation()
 
 //        val song = Song(binding.mainMiniplayerTitleTv.text.toString(), binding.mainMiniplayerSingerTv.text.toString())
-//        val song = Song("라일락", "아이유(IU)", 215, false)
-//        setMiniPlayer(song)
+//      val song = Song("라일락", "아이유(IU)", 0,215, false, "music_lilac")
+//      setMiniPlayer(song)
 
         Log.d("LOG test",binding.mainMiniplayerTitleTv.text.toString()+ binding.mainMiniplayerSingerTv.text.toString())
 
         binding.mainPlayerLayout.setOnClickListener {
             val intent = Intent(this,SongActivity::class.java)
-            val song = Song("라일락락락", "아이유(IU) 아이유", 0,215, false, "music_lilac")
+
             intent.putExtra("title", song.title)
             intent.putExtra("singer", song.singer)
             intent.putExtra("second", song.second)
@@ -89,9 +89,8 @@ class MainActivity : AppCompatActivity() {
         binding.mainMiniplayerTitleTv.text = song.title
         binding.mainMiniplayerSingerTv.text = song.singer
         binding.mainProgressSb.progress = (song.second * 1000 / song.playTime)
-//        song.music = intent.getStringExtra("music")!!
-//        val music = resources.getIdentifier(song.music, "raw", this.packageName)
-//        mediaPlayer = MediaPlayer.create(this, music)
+        val music = resources.getIdentifier(song.music, "raw", this.packageName)
+        mediaPlayer = MediaPlayer.create(this, music)
 
         if(song.isPlaying) {
             binding.mainMiniplayerPauseIv.visibility = View.VISIBLE
@@ -102,15 +101,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
 
         val sharedPreferences = getSharedPreferences("song", MODE_PRIVATE)
-        val songData = sharedPreferences.getString("songData", null)
-        if(songData == null){
-            song = Song("제목", "가수", 0,100, false, null)
+        val songData = sharedPreferences.getString("song", null)
+        song = if(songData == null){
+            Song("라일락","아이유(IU)", 0,215, false, "music_lilac")
         } else {
-            song = gson.fromJson(songData, Song::class.java)
+            gson.fromJson(songData, Song::class.java)
         }
         setMiniPlayer(song)
     }

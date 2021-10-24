@@ -109,31 +109,29 @@ class SongActivity : AppCompatActivity() {
         }
     }
     // onStop 에서 하면 main 이랑 바로 동기화가 잘 안 됨
-    // 데이터 저장
+    // 데이터 저장  // 포커스를 잃었을 때, 음악을 중지한다고 가정
     override fun onPause() {
         super.onPause()
+        // pause 될 때 현재 상태를 song data 객체에 업데이트 해줘야 겠죠?
         song.isPlaying = false
         song.second = (song.playTime*binding.musicplayerProgressSb.progress)/1000
-
+        timer.isPlaying = false; // 스레드 멈춤
+        mediaPlayer?.pause()
+        setPlayerStatus(false); // 멈춤상태로 이미지 전환
+        // sharedPreferences 에 저장
         val sharedPreferences = getSharedPreferences("song", MODE_PRIVATE)
-        val editor : SharedPreferences.Editor = sharedPreferences.edit() //sharedpreference를 쓰고 지우기와 같은 조작을 하려면 editor를 사용해야 한다.
-        val json = gson.toJson(song) //song 객체를 Json 형식으로 변환
-        editor.putString("songData", json) //Json 형으로 저장
+        val editor : SharedPreferences.Editor = sharedPreferences.edit()
+        val json = gson.toJson(song) //song 객체를 Json으로
+        editor.putString("song", json) //Json 형으로 저장
 
         editor.apply()
     }
-    // 뮤직플레이어 정지
-    override fun onStop() {
-        super.onStop()
-        timer.isPlaying = false; // 스레드 멈춤
-        setPlayerStatus(false); // 멈춤상태로 이미지 전환
-        mediaPlayer?.pause()
-    }
+
     // 앱이 종료될 때 리소스 해제
     override fun onDestroy() {
         super.onDestroy()
         timer.interrupt() // 스레드를 해제함
         mediaPlayer?.release() // 미디어플레이어가 가지고 있던 리소스를 해방
-        mediaPlayer = null // 앱이 종료될 때 미디어플레이어 자원을 해제시켜줘야 한다.
+        mediaPlayer = null // 미디어플레이어 해제
     }
 }
