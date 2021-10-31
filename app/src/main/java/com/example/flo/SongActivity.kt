@@ -108,6 +108,7 @@ class SongActivity : AppCompatActivity() {
             }
         }
     }
+
     // onStop 에서 하면 main 이랑 바로 동기화가 잘 안 됨
     // 데이터 저장  // 포커스를 잃었을 때, 음악을 중지한다고 가정
     override fun onPause() {
@@ -120,7 +121,7 @@ class SongActivity : AppCompatActivity() {
         setPlayerStatus(false); // 멈춤상태로 이미지 전환
         // sharedPreferences 에 저장
         val sharedPreferences = getSharedPreferences("song", MODE_PRIVATE)
-        val editor : SharedPreferences.Editor = sharedPreferences.edit()
+        val editor = sharedPreferences.edit()
         val json = gson.toJson(song) //song 객체를 Json으로
         editor.putString("song", json) //Json 형으로 저장
 

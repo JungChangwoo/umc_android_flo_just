@@ -83,6 +83,9 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().replace(R.id.main_frm, HomeFragment())
             .commitAllowingStateLoss()
     }
+    public fun set(song : Song){
+
+    }
 
 
     private fun setMiniPlayer(song : Song){
@@ -100,14 +103,15 @@ class MainActivity : AppCompatActivity() {
             binding.mainMiniplayerPlayIv.visibility = View.VISIBLE
         }
     }
-
-    override fun onResume() {
-        super.onResume()
+    //onCreate가 아니라 onStart에서 해주는 이유는 Main입장에서 Song으로 갔다가 다시 돌아왔을 때에도 Song에 있던
+    //데이터들을 miniPlayer에 반영해주어야 하잖아요? 그래서 onStart
+    override fun onStart() {
+        super.onStart()
 
         val sharedPreferences = getSharedPreferences("song", MODE_PRIVATE)
         val songData = sharedPreferences.getString("song", null)
         song = if(songData == null){
-            Song("라일락","아이유(IU)", 0,215, false, "music_lilac")
+            Song("라락","아이유(IU)", 0,215, false, "music_lilac")
         } else {
             gson.fromJson(songData, Song::class.java)
         }
