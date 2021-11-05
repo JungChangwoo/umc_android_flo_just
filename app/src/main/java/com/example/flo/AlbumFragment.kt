@@ -25,6 +25,12 @@ class AlbumFragment : Fragment() {
     ): View? {
         binding = FragmentAlbumBinding.inflate(inflater, container, false)
 
+        //Home 에서 데이터 받아오기
+        val albumData = arguments?.getString("album")
+        val album = gson.fromJson(albumData, Album::class.java)
+        // Home 에서 받아온 데이터 적용
+        setInit(album)
+
         binding.albumBackIv.setOnClickListener {
             (context as MainActivity).supportFragmentManager.beginTransaction()
                     .replace(R.id.main_frm, HomeFragment())
@@ -45,5 +51,11 @@ class AlbumFragment : Fragment() {
 
 
         return binding.root
+    }
+
+    private fun setInit(album: Album) {
+        binding.albumMusicTitleTv.text = album.title.toString()
+        binding.albumSingerNameTv.text = album.singer.toString()
+        binding.albumAlbumIv.setImageResource(album.coverImg!!)
     }
 }

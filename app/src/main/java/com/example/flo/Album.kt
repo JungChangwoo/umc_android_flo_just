@@ -5,5 +5,6 @@ import android.widget.ImageView
 data class Album(
         var title: String? = "",
         var singer: String? = "",
-        var cover: Int? = null
+        var coverImg: Int? = null,
+        var songs: ArrayList<Song>? = null
 )
